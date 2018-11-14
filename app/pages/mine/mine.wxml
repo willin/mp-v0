@@ -1,0 +1,10 @@
+<!--app/pages/mine/mine.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">网易云音乐</view>
+    <view class="page__desc">当前访问用户UID为： {{ uid }}</view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <button class="btn" bindtap="logout" type="warn">切换账号</button>
+  </view>
+</view>

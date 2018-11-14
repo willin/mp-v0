@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/hot/hot",
+    "pages/mine/mine",
+    "pages/mine/login"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#BB2C08",
+    "navigationBarTitleText": "微聆",
+    "navigationBarTextStyle": "#fff"
+  },
+  "tabBar": {
+    "color": "#666",
+    "selectedColor": "#000",
+    "list": [
+      {
+        "pagePath": "pages/hot/hot",
+        "iconPath": "images/hot.png",
+        "selectedIconPath": "images/hot-active.png",
+        "text": "热评"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-active.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
