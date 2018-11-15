@@ -25,9 +25,10 @@ const getUserHotComments = uid => SDK.user.record({
   type: 0
 }).then(({ body: { hotComments } }) => hotComments.filter(({ content }) => content.length > 140)
   .map(({
-    user: { vipRights, avatarUrl, nickname }, time, likedCount, content
+    user: { vipRights, avatarUrl, nickname }, time, likedCount, content, commentId
   }) => ({
     sid: id,
+    cid: commentId,
     vip: vipRights !== null,
     avatar: avatarUrl,
     liked: likedCount,
