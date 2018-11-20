@@ -1,1 +1,5 @@
 /* app/pages/hot/hot.wxss */
+.vip {
+  width: 1em;
+  height: 1em;
+}

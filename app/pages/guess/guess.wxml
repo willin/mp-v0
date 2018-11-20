@@ -8,9 +8,12 @@
               <view class="weui-media-box weui-media-box_text">
                   <view><text>{{ item.content }}</text></view>
                   <view class="weui-media-box__info">
-                      <view class="weui-media-box__info__meta">{{ item.nickname }}</view>
+                      <view class="weui-media-box__info__meta">
+                      {{ item.nickname }}
+                      <image wx:if="{{ item.vip }}" class="vip" src="../../images/vip.png"></image>
+                      </view>
                       <view class="weui-media-box__info__meta">{{ item.created }}</view>
-                      <view class="weui-media-box__info__meta">赞: {{ item.liked }}</view>
+                      <view class="weui-media-box__info__meta">赞: {{ item.likedTip }}</view>
                   </view>
               </view>
             </view>

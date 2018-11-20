@@ -36,7 +36,7 @@ Page({
     });
     const hot = wx.getStorageSync('hot');
     const that = this;
-    if(hot) {
+    if (hot) {
       console.log(hot);
       this.setData({
         hot: hot
@@ -50,7 +50,8 @@ Page({
       }).then(res => {
         console.log(res.result);
         const newHot = res.result.map(x => Object.assign(x, {
-          created: formatDate('yyyy年M月d日 h时', x.time)
+          created: formatDate('yyyy年M月d日 h时', x.time),
+          likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
         }));
         that.setData({
           hot: newHot

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/hot/hot",
     "pages/guess/guess",
+    "pages/hot/hot",
     "pages/mine/mine",
     "pages/mine/login"
   ],
