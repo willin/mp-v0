@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/hot/hot",
+    "pages/guess/guess",
     "pages/mine/mine",
     "pages/mine/login"
   ],
@@ -13,13 +14,25 @@
   },
   "tabBar": {
     "color": "#666",
-    "selectedColor": "#000",
+    "selectedColor": "#BB2C08",
     "list": [
       {
         "pagePath": "pages/hot/hot",
-        "iconPath": "images/hot.png",
-        "selectedIconPath": "images/hot-active.png",
-        "text": "热评"
+        "iconPath": "images/discover.png",
+        "selectedIconPath": "images/discover-active.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/hot/hot",
+        "iconPath": "images/search.png",
+        "selectedIconPath": "images/search-active.png",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/guess/guess",
+        "iconPath": "images/guess.png",
+        "selectedIconPath": "images/guess-active.png",
+        "text": "共鸣"
       },
       {
         "pagePath": "pages/mine/mine",
