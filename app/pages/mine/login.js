@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    yearNow: new Date().getFullYear(),
     phone: "",
     pwd: "",
     uid: "",

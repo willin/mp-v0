@@ -1,1 +1,7 @@
 /* app/pages/hot/hot.wxss */
+.picker {
+  font-size: 0.8em;
+}
+.picker .weui-cell__bd {
+  color: #666;
+}

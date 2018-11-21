@@ -1,7 +1,8 @@
 // app/pages/mine/mine.js
 Page({
   data: {
-    uid: 0
+    uid: 0,
+    yearNow:  new Date().getFullYear()
   },
   onLoad: function() {
     const uid = wx.getStorageSync('user');

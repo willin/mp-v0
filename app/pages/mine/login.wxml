@@ -1,42 +1,45 @@
 <view class="page">
-    <view class="page__bd">
-        <view class="weui-tab">
-            <view class="weui-navbar">
-                <block wx:for="{{tabs}}" wx:key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-                        <view class="weui-navbar__title">{{item}}</view>
+  <view class="page__bd">
+      <view class="weui-tab">
+          <view class="weui-navbar">
+              <block wx:for="{{tabs}}" wx:key="*this">
+                  <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                      <view class="weui-navbar__title">{{item}}</view>
+                  </view>
+              </block>
+              <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+          </view>
+          <view class="weui-tab__panel">
+              <view class="weui-tab__content form-common" hidden="{{activeIndex != 0}}">
+                <form bindsubmit="login">
+                    <view class="formc-cnt">
+                        <text>账号：</text>
+                        <input auto-focus bindinput="textinput" data-type="1" placeholder="网易云音乐 手机/邮箱" type="text"/>
                     </view>
-                </block>
-                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-            </view>
-            <view class="weui-tab__panel">
-                <view class="weui-tab__content form-common" hidden="{{activeIndex != 0}}">
-                  <form bindsubmit="login">
-                      <view class="formc-cnt">
-                          <text>账号：</text>
-                          <input auto-focus bindinput="textinput" data-type="1" placeholder="网易云音乐 手机/邮箱" type="text"/>
-                      </view>
-                      <view class="formc-cnt">
-                          <text>密码：</text>
-                          <input auto-focus bindinput="textinput" data-type="2" placeholder="密码" type="text" password="true"/>
-                      </view>
-                      <view>
-                          <button type="primary" hover-class="btnhover" formType="submit">登录</button>
-                      </view>
-                  </form>
-                </view>
-                <view class="weui-tab__content form-common" hidden="{{activeIndex != 1}}">
-                    <form bindsubmit="save">
-                      <view class="formc-cnt">
-                          <text>UID：</text>
-                          <input auto-focus bindinput="textinput" data-type="3" placeholder="网易云音乐 用户ID" type="text"/>
-                      </view>
-                      <view>
-                          <button type="primary" hover-class="btnhover" formType="submit">保存</button>
-                      </view>
-                  </form>
-                </view>
-            </view>
-        </view>
-    </view>
+                    <view class="formc-cnt">
+                        <text>密码：</text>
+                        <input auto-focus bindinput="textinput" data-type="2" placeholder="密码" type="text" password="true"/>
+                    </view>
+                    <view>
+                        <button type="primary" hover-class="btnhover" formType="submit">登录</button>
+                    </view>
+                </form>
+              </view>
+              <view class="weui-tab__content form-common" hidden="{{activeIndex != 1}}">
+                  <form bindsubmit="save">
+                    <view class="formc-cnt">
+                        <text>UID：</text>
+                        <input auto-focus bindinput="textinput" data-type="3" placeholder="网易云音乐 用户ID" type="text"/>
+                    </view>
+                    <view>
+                        <button type="primary" hover-class="btnhover" formType="submit">保存</button>
+                    </view>
+                </form>
+              </view>
+          </view>
+      </view>
+  </view>
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__text">Copyright © 2018-{{ yearNow }} 初瘦</view>
+  </view>
 </view>

@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/guess/guess",
     "pages/hot/hot",
+    "pages/guess/guess",
     "pages/mine/mine",
-    "pages/mine/login"
+    "pages/mine/login",
+    "pages/search/search"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -23,7 +24,7 @@
         "text": "发现"
       },
       {
-        "pagePath": "pages/hot/hot",
+        "pagePath": "pages/search/search",
         "iconPath": "images/search.png",
         "selectedIconPath": "images/search-active.png",
         "text": "搜索"
@@ -41,5 +42,12 @@
         "text": "我的"
       }
     ]
-  }
+  },
+  "plugins": {
+    "sdkPlugin": {
+      "version": "1.10.0",
+      "provider": "wxc6b86e382a1e3294"
+    }
+  },
+  "resizable": true
 }

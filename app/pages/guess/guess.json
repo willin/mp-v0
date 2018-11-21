@@ -1,1 +1,4 @@
-{}
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "共鸣-猜你喜欢"
+}

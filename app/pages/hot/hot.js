@@ -1,65 +1,49 @@
 // app/pages/hot/hot.js
-function formatDate(inputPattern, inputDate) {
-  const date = new Date(inputDate).toString() === 'Invalid Date' ? new Date() : new Date(inputDate);
-  let pattern = inputPattern || 'yyyy-MM-dd hh:mm:ss';
-  const y = date.getFullYear().toString();
-  const o = {
-    M: date.getMonth() + 1, // month
-    d: date.getDate(), // day
-    h: date.getHours(), // hour
-    m: date.getMinutes(), // minute
-    s: date.getSeconds() // second
-  };
-  pattern = pattern.replace(/(y+)/ig, (a, b) => y.substr(4 - Math.min(4, b.length)));
-  /* eslint no-restricted-syntax:0,guard-for-in:0 */
-  for (const i in o) {
-    pattern = pattern.replace(new RegExp(`(${i}+)`, 'g'), (a, b) => ((o[i] < 10 && b.length > 1) ? `0${o[i]}` : o[i]));
-  }
-  return pattern;
-};
+import regeneratorRuntime from '../../lib/runtime.js';
+import { formatDate } from '../../lib/common.js'
+
+const discover = async (page = 1, order = 0) => {
+  wx.showLoading({
+    title: '加载中',
+  });
+  // const { result } = await wx.cloud.callFunction({
+  //   name: 'hot',
+  //   data: {
+  //     page,
+  //     order
+  //   }
+  // }).catch(err => {
+  //   console.log(err)
+  // });
+
+  wx.hideLoading();
+  console.log(result);
+  return result;
+}
 
 Page({
   data: {
-    uid: 0,
+    index: 0,
+    orderType: ['按热度降序', '按时间降序'],
     hot: []
   },
-  onLoad: function () {
-    const uid = wx.getStorageSync('user');
-    if (!uid) {
-      wx.redirectTo({
-        url: '../mine/login'
-      });
-      return;
-    }
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      uid
-    });
-    const hot = wx.getStorageSync('hot');
-    const that = this;
-    if (hot) {
-      console.log(hot);
-      this.setData({
-        hot: hot
-      });
-    } else {
-      wx.cloud.callFunction({
-        name: 'user_hot',
-        data: {
-          uid
-        }
-      }).then(res => {
-        console.log(res.result);
-        const newHot = res.result.map(x => Object.assign(x, {
-          created: formatDate('yyyy年M月d日 h时', x.time),
-          likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
-        }));
-        that.setData({
-          hot: newHot
-        });
-        wx.setStorageSync('hot', res.result);
-      }).catch(err => {
-        console.log(err)
-      });
-    }
+      index: e.detail.value
+    })
+  },
+  onLoad: async function () {
+    const db = new wx.BaaS.TableObject(57892);
+
+    await db.createMany([
+
+      { test: 6 },
+
+      { test: 3 },
+
+      { test: 4 },
+
+    ]).then(console.log).catch(e => console.error);
   }
 })

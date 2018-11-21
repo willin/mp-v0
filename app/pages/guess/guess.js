@@ -1,22 +1,24 @@
-// app/pages/hot/hot.js
-function formatDate(inputPattern, inputDate) {
-  const date = new Date(inputDate).toString() === 'Invalid Date' ? new Date() : new Date(inputDate);
-  let pattern = inputPattern || 'yyyy-MM-dd hh:mm:ss';
-  const y = date.getFullYear().toString();
-  const o = {
-    M: date.getMonth() + 1, // month
-    d: date.getDate(), // day
-    h: date.getHours(), // hour
-    m: date.getMinutes(), // minute
-    s: date.getSeconds() // second
-  };
-  pattern = pattern.replace(/(y+)/ig, (a, b) => y.substr(4 - Math.min(4, b.length)));
-  /* eslint no-restricted-syntax:0,guard-for-in:0 */
-  for (const i in o) {
-    pattern = pattern.replace(new RegExp(`(${i}+)`, 'g'), (a, b) => ((o[i] < 10 && b.length > 1) ? `0${o[i]}` : o[i]));
-  }
-  return pattern;
-};
+// app/pages/guess/guess.js
+import regeneratorRuntime from '../../lib/runtime.js';
+import { formatDate } from '../../lib/common.js'
+
+const guess = async (uid) => {
+  wx.showLoading({
+    title: '加载中',
+  });
+  const { result } = await wx.cloud.callFunction({
+    name: 'guess',
+    data: {
+      uid
+    }
+  }).catch(err => {
+    console.log(err)
+  });
+  wx.hideLoading();
+  console.log(result);
+  wx.setStorageSync('hot',result);
+  return result;
+}
 
 Page({
   data: {
@@ -37,29 +39,58 @@ Page({
     const hot = wx.getStorageSync('hot');
     const that = this;
     if(hot) {
-      console.log(hot);
-      this.setData({
-        hot: hot
-      });
+      this.prepareData(hot);
     } else {
-      wx.cloud.callFunction({
-        name: 'user_hot',
-        data: {
-          uid
-        }
-      }).then(res => {
-        console.log(res.result);
-        const newHot = res.result.map(x => Object.assign(x, {
-          created: formatDate('yyyy年M月d日 h时', x.time),
-          likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
-        }));
-        that.setData({
-          hot: newHot
-        });
-        wx.setStorageSync('hot', res.result);
-      }).catch(err => {
-        console.log(err)
-      });
+      guess(uid)
+        .then(this.prepareData)
+        .then(this.updateDB);
+    }
+  },
+  onPullDownRefresh: function () {
+    guess(this.data.uid)
+      .then(this.prepareData)
+      .then(this.updateDB);
+  },
+  // onReachBottom: function (){
+  //   console.log('hello world');
+  // },
+  prepareData: function(hot) {
+    this.setData({
+      hot: JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
+        created: formatDate('yy年M月d日 h时', x.time),
+        likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
+      }))
+    });
+    return hot;
+  },
+  updateDB: async function(hot) {
+    // 判断是否要更新到数据库
+    const lastSave = ~~wx.getStorageSync('lastSave');
+    const now = new Date().getTime() / 1000;
+    if (true || now > lastSave) {
+      console.log('更新数据库');
+      // 存放数据
+      // const db = new wx.BaaS.TableObject(57890);
+      // await db.createMany(hot).then(console.log).catch(e => console.error);
+
+      // const db = wx.cloud.database();
+      // // 测试1
+      // for (let i = 0; i < hot.length; i += 1) {
+      //   const comment = hot[i];
+      //   await db.collection('comments').doc(comment.cid).set({
+      //     data: comment
+      //   }).then(console.log).catch(e => console.error)
+      // }
+      // // 测试2
+      // const tasks = hot.map(comment => 
+      //   db.collection('comments').doc(comment.cid).set({
+      //     data: comment
+      //   }).catch(e => console.error)
+      // );
+      // await Promise.all(tasks).then(console.log).catch(e => console.error);
+
+
+      wx.setStorageSync('lastSave', now + 43200);
     }
   }
 })

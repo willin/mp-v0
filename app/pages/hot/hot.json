@@ -1,1 +1,4 @@
-{}
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "发现-热门排行"
+}

@@ -1,6 +1,7 @@
 project.config.json
 demo/
 design/
+config.js
 
 # Windows
 [Dd]esktop.ini

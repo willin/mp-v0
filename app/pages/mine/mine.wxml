@@ -7,4 +7,7 @@
   <view class="page__bd page__bd_spacing">
     <button class="btn" bindtap="logout" type="warn">切换账号</button>
   </view>
+  <view class="weui-footer weui-footer_fixed-bottom">
+    <view class="weui-footer__text">Copyright © 2018-{{ yearNow }} 初瘦</view>
+  </view>
 </view>
