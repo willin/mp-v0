@@ -24,7 +24,7 @@ Page({
       cancelText: "取消",
       success: function (res) {
         if (res.confirm) {
-          wx.removeStorageSync('user');
+          wx.clearStorageSync();
           wx.redirectTo({
             url: '../mine/login'
           });

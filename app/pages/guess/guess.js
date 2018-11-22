@@ -70,26 +70,14 @@ Page({
     if (true || now > lastSave) {
       console.log('更新数据库');
       // 存放数据
-      // const db = new wx.BaaS.TableObject(57890);
-      // await db.createMany(hot).then(console.log).catch(e => console.error);
-
-      // const db = wx.cloud.database();
-      // // 测试1
-      // for (let i = 0; i < hot.length; i += 1) {
-      //   const comment = hot[i];
-      //   await db.collection('comments').doc(comment.cid).set({
-      //     data: comment
-      //   }).then(console.log).catch(e => console.error)
-      // }
-      // // 测试2
-      // const tasks = hot.map(comment => 
-      //   db.collection('comments').doc(comment.cid).set({
-      //     data: comment
-      //   }).catch(e => console.error)
-      // );
-      // await Promise.all(tasks).then(console.log).catch(e => console.error);
-
-
+      const db = wx.cloud.database();
+      for (let i = 0; i < hot.length; i += 1) {
+        console.log(i);
+        const comment = hot[i];
+        await db.collection('comments').doc('c-' + comment.cid).set({
+          data: comment
+        }).catch(e => console.error)
+      }
       wx.setStorageSync('lastSave', now + 43200);
     }
   }

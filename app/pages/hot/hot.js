@@ -38,14 +38,15 @@ Page({
     });
 
     const limit = 10;
-    const offset = (page - 1) * limit;
+    const skip = (page - 1) * limit;
     const orderBy = order === 0 ? '-liked' : '-time';
 
-    const db = new wx.BaaS.TableObject(57890);
-    const { data: { objects: result = [], meta: { total_count: total = 0 } = {} } = {} } = await db.limit(limit).offset(offset).orderBy(orderBy).find();
+    const db = wx.cloud.database();
+    const { data: result = []} = await db.collection('comments').skip(skip).limit(limit).orderBy(order === 0 ? 'liked' : 'time', 'desc').get();
+   
     wx.hideLoading();
     console.log(result);
-    const pages = Math.ceil(total / limit);
+    const pages = Math.ceil(await db.collection('comments').count() / limit);
     
     this.setData({
       pages,

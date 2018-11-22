@@ -78,7 +78,7 @@ Page({
     // 12797402
     wx.setStorageSync('user', this.data.uid);
     wx.switchTab({
-      url: '../hot/hot'
+      url: '../guess/guess'
     });
   }
 })
