@@ -17,7 +17,7 @@ Page({
   onReachBottom() {
     if(this.data.pages > this.data.page) {
       this.discover(this.data.page + 1, this.data.index)
-        .then(this.prepareData);
+        .then(this.prepareDataAppend);
     }
   },
   bindPickerChange: function (e) {
@@ -60,6 +60,17 @@ Page({
         created: formatDate('yy年M月d日 h时', x.time),
         likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
       }))
+    });
+    return hot;
+  },
+  prepareDataAppend: function (hot) {
+    this.setData({
+      hot: this.data.hot.concat(
+        JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
+          created: formatDate('yy年M月d日 h时', x.time),
+          likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
+        }))
+      )
     });
     return hot;
   }
