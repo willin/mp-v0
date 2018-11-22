@@ -25,11 +25,11 @@ Page({
     this.setData({
       index: e.detail.value
     })
-    this.discover(this.data.page, e.detail.value)
+    this.discover(1, e.detail.value)
       .then(this.prepareData);
   },
   onLoad: function () {
-    this.discover(this.data.page, this.data.index)
+    this.discover(1, this.data.index)
       .then(this.prepareData);
   },
   discover: async function (page = 1, order = 0) {
