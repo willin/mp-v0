@@ -1,66 +1,62 @@
 // app/pages/search/song.js
+import regeneratorRuntime from '../../lib/runtime.js';
+import { formatDate } from '../../lib/common.js'
+
+const song = async (id) => {
+  wx.showLoading({
+    title: '加载中',
+  });
+  const { result = [] } = await wx.cloud.callFunction({
+    name: 'song',
+    data: {
+      id
+    }
+  }).catch(err => {
+    console.log(err)
+  });
+  wx.hideLoading();
+  console.log(result);
+  return result;
+}
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    id: -1,
+    music: '',
+    artist: ''
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(options)
+  onLoad: function ({id = -1, music = '', artist = ''}) {
+    this.setData({
+      id,
+      music,
+      artist
+    });
+    song(id).then(this.addInfo).then(this.prepareData).then(this.updateDB);
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  addInfo: function(result) {
+    return result.map((item) => {
+      item.music = this.data.music;
+      item.artist = this.data.artist;
+      return item;
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  prepareData: function (hot) {
+    this.setData({
+      hot: JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
+        created: formatDate('yy年M月d日 h时', x.time),
+        likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
+      }))
+    });
+    return hot;
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  updateDB: async function (hot) {
+    // 存放数据
+    const db = wx.cloud.database();
+    for (let i = 0; i < hot.length; i += 1) {
+      const comment = hot[i];
+      await db.collection('comments').doc('c-' + comment.cid).set({
+        data: comment
+      }).catch(e => console.error)
+    }
   }
 })

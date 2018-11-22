@@ -46,8 +46,8 @@ Page({
    
     wx.hideLoading();
     console.log(result);
-    const pages = Math.ceil(await db.collection('comments').count() / limit);
-    
+    const { total } = await db.collection('comments').count();
+    const pages = Math.ceil(total / limit);
     this.setData({
       pages,
       page

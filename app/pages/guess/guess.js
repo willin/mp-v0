@@ -51,9 +51,6 @@ Page({
       .then(this.prepareData)
       .then(this.updateDB);
   },
-  // onReachBottom: function (){
-  //   console.log('hello world');
-  // },
   prepareData: function(hot) {
     this.setData({
       hot: JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
@@ -67,12 +64,11 @@ Page({
     // 判断是否要更新到数据库
     const lastSave = ~~wx.getStorageSync('lastSave');
     const now = new Date().getTime() / 1000;
-    if (true || now > lastSave) {
+    if (now > lastSave) {
       console.log('更新数据库');
       // 存放数据
       const db = wx.cloud.database();
       for (let i = 0; i < hot.length; i += 1) {
-        console.log(i);
         const comment = hot[i];
         await db.collection('comments').doc('c-' + comment.cid).set({
           data: comment
