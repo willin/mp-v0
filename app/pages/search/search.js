@@ -1,66 +1,51 @@
 // app/pages/search/search.js
+import regeneratorRuntime from '../../lib/runtime.js';
+
+const app = getApp();
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    inputShowed: false,
+    inputVal: "",
+    result: []
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  search: async function(e) { 
+    wx.showLoading({
+      title: '加载中',
+    });
+    const { result = [] } = await wx.cloud.callFunction({
+      name: 'search',
+      data: {
+        keywords: e.detail.value
+      }
+    }).catch(err => {
+      console.log(err)
+    });
+    wx.hideLoading();
+    console.log(result);
+    this.setData({
+      result
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  showInput: function () {
+    this.setData({
+      inputShowed: true
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  hideInput: function () {
+    this.setData({
+      inputVal: "",
+      inputShowed: false
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  clearInput: function () {
+    this.setData({
+      inputVal: ""
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  inputTyping: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    });
   }
-})
+});

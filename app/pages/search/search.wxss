@@ -1,1 +1,8 @@
 /* app/pages/search/search.wxss */
+.meta {
+  color: #999;
+  font-size: 0.75em;
+}
+.artist {
+  max-width: 8em;
+}

@@ -2,48 +2,64 @@
 import regeneratorRuntime from '../../lib/runtime.js';
 import { formatDate } from '../../lib/common.js'
 
-const discover = async (page = 1, order = 0) => {
-  wx.showLoading({
-    title: '加载中',
-  });
-  // const { result } = await wx.cloud.callFunction({
-  //   name: 'hot',
-  //   data: {
-  //     page,
-  //     order
-  //   }
-  // }).catch(err => {
-  //   console.log(err)
-  // });
-
-  wx.hideLoading();
-  console.log(result);
-  return result;
-}
-
 Page({
   data: {
     index: 0,
+    page: 1,
+    pages: 1,
     orderType: ['按热度降序', '按时间降序'],
     hot: []
+  },
+  onPullDownRefresh: function () {
+    this.discover(this.data.page, this.data.index)
+      .then(this.prepareData);
+  },
+  onReachBottom() {
+    if(this.data.pages > this.data.page) {
+      this.discover(this.data.page + 1, this.data.index)
+        .then(this.prepareData);
+    }
   },
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
     })
+    this.discover(this.data.page, e.detail.value)
+      .then(this.prepareData);
   },
-  onLoad: async function () {
-    const db = new wx.BaaS.TableObject(57892);
+  onLoad: function () {
+    this.discover(this.data.page, this.data.index)
+      .then(this.prepareData);
+  },
+  discover: async function (page = 1, order = 0) {
+    wx.showLoading({
+      title: '加载中',
+    });
 
-    await db.createMany([
+    const limit = 10;
+    const offset = (page - 1) * limit;
+    const orderBy = order === 0 ? '-liked' : '-time';
 
-      { test: 6 },
-
-      { test: 3 },
-
-      { test: 4 },
-
-    ]).then(console.log).catch(e => console.error);
+    const db = new wx.BaaS.TableObject(57890);
+    const { data: { objects: result = [], meta: { total_count: total = 0 } = {} } = {} } = await db.limit(limit).offset(offset).orderBy(orderBy).find();
+    wx.hideLoading();
+    console.log(result);
+    const pages = Math.ceil(total / limit);
+    
+    this.setData({
+      pages,
+      page
+    });
+    return result;
+  },
+  prepareData: function (hot) {
+    this.setData({
+      hot: JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
+        created: formatDate('yy年M月d日 h时', x.time),
+        likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
+      }))
+    });
+    return hot;
   }
 })

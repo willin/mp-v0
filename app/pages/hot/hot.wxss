@@ -5,3 +5,7 @@
 .picker .weui-cell__bd {
   color: #666;
 }
+.vip {
+  width: 1em;
+  height: 1em;
+}

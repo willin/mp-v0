@@ -8,8 +8,8 @@ const getUserHotComments = uid => SDK.user.record({
   type: '0'
 }).then(({
   body: {
-    allData: songs
-  }
+    allData: songs =[]
+  } = {}
 }) => songs.map(({
   song: {
     song: {
@@ -45,5 +45,5 @@ const getUserHotComments = uid => SDK.user.record({
 exports.main = async (event, context) => {
   const { uid } = event;
   const result = await getUserHotComments(uid);
-  return result
+  return result;
 }

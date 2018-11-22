@@ -4,7 +4,8 @@
     "pages/guess/guess",
     "pages/mine/mine",
     "pages/mine/login",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/search/song"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
