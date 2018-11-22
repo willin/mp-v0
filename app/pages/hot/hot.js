@@ -11,7 +11,7 @@ Page({
     hot: []
   },
   onPullDownRefresh: function () {
-    this.discover(this.data.page, this.data.index)
+    this.discover(1, this.data.index)
       .then(this.prepareData);
   },
   onReachBottom() {
