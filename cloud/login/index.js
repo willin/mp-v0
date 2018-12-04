@@ -26,8 +26,9 @@ exports.main = async (event, context) => {
       password
     });
   }
-  const { body: { account: { id: uid = 0 } = {} } = {} } = await task.catch(()=>({}));
+  const { body: { account: { id: uid = 0 } = {}, profile: { gender = 1 } = { } } = {} } = await task.catch(()=>({}));
   return {
-    uid
+    uid,
+    gender
   };
 }
