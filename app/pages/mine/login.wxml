@@ -35,6 +35,7 @@
                         <button type="primary" hover-class="btnhover" formType="submit">保存</button>
                     </view>
                 </form>
+                <view class="weui-footer__text"><text>注意：UID是纯数字ID，如不了解请使用账号登录。</text></view>
               </view>
           </view>
       </view>

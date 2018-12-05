@@ -49,18 +49,19 @@ Page({
   onPullDownRefresh: function () {
     guess(this.data.uid)
       .then(this.prepareData)
-      .then(this.updateDB);
+      .then(this.updateDB)
+      .catch((e)=>{});
   },
-  prepareData: function(hot) {
+  prepareData: function(hot = []) {
     this.setData({
-      hot: JSON.parse(JSON.stringify(hot)).map(x => Object.assign(x, {
+      hot: (JSON.parse(JSON.stringify(hot))||[]).map(x => Object.assign(x, {
         created: formatDate('yy年M月d日 h时', x.time),
         likedTip: x.liked > 10000 ? `${Math.round(x.liked / 1000) / 10}万` : x.liked
       }))
     });
     return hot;
   },
-  updateDB: async function(hot) {
+  updateDB: async function(hot = []) {
     // 判断是否要更新到数据库
     const lastSave = ~~wx.getStorageSync('lastSave');
     const now = new Date().getTime() / 1000;

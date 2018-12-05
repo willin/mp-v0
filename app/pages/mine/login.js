@@ -75,6 +75,12 @@ Page({
     });
   },
   save: function() {
+    if(!/^\d+$/.test(this.data.uid)) {
+      return wx.showModal({
+        content: 'UID格式为纯数字',
+        showCancel: false
+      });
+    }
     // 12797402
     wx.setStorageSync('user', this.data.uid);
     wx.switchTab({
