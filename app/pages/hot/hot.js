@@ -7,7 +7,7 @@ Page({
     index: 0,
     page: 1,
     pages: 1,
-    orderType: ['按热度降序', '按时间降序'],
+    orderType: ['按热度降序', '按更新时间降序', '按发布时间降序'],
     hot: []
   },
   onPullDownRefresh: function () {
@@ -39,10 +39,11 @@ Page({
 
     const limit = 10;
     const skip = (page - 1) * limit;
-    const orderBy = order === 0 ? '-liked' : '-time';
 
     const db = wx.cloud.database();
-    const { data: result = []} = await db.collection('comments').skip(skip).limit(limit).orderBy(order === 0 ? 'liked' : 'time', 'desc').get();
+    const { data: result = []} = order === 1 
+      ? await db.collection('comments').skip(skip).limit(limit).get()
+      : await db.collection('comments').skip(skip).limit(limit).orderBy(order === 0 ? 'liked' : 'time', 'desc').get();
    
     wx.hideLoading();
     console.log(result);
