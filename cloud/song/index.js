@@ -6,7 +6,7 @@ const SDK = require('wnm');
 const getSongHotComments = id => SDK.comment.hot({
   id,
   type: 0
-}).then(({ body: { hotComments } }) => hotComments.filter(({ content }) => content.length > 100)
+}).then(({ body: { hotComments } }) => hotComments.filter(({ content, likedCount }) => content.length > 100 || likedCount > 1e5)
   .map(({
     user: { vipRights, avatarUrl, nickname }, time, likedCount, content, commentId
   }) => ({
