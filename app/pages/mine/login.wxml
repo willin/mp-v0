@@ -21,7 +21,7 @@
                         <input auto-focus bindinput="textinput" data-type="2" placeholder="密码" type="text" password="true"/>
                     </view>
                     <view>
-                        <button type="primary" hover-class="btnhover" formType="submit">登录</button>
+                        <button type="primary" class="primary" hover-class="btnhover" formType="submit">登录</button>
                     </view>
                 </form>
               </view>
@@ -32,11 +32,14 @@
                         <input auto-focus bindinput="textinput" data-type="3" placeholder="网易云音乐 用户ID" type="text"/>
                     </view>
                     <view>
-                        <button type="primary" hover-class="btnhover" formType="submit">保存</button>
+                        <button type="primary" class="primary" hover-class="btnhover" formType="submit">保存</button>
                     </view>
                 </form>
                 <view class="weui-footer__text"><text>注意：UID是纯数字ID，如不了解请使用账号登录。</text></view>
               </view>
+          </view>
+          <view class="form-common">
+            <button type="default" class="secondary" bindtap="guest">游客登录</button>
           </view>
       </view>
   </view>

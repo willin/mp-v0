@@ -86,5 +86,10 @@ Page({
     wx.switchTab({
       url: '../guess/guess'
     });
+  },
+  guest: function() {
+    wx.switchTab({
+      url: '../hot/hot'
+    });
   }
 })

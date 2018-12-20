@@ -5,6 +5,9 @@
     <view class="page__desc">当前访问用户UID为： {{ uid }}</view>
   </view>
   <view class="page__bd page__bd_spacing">
+    <button class="secondary" open-type="feedback" type="default">意见反馈</button>
+  </view>
+  <view class="page__bd page__bd_spacing">
     <button class="btn" bindtap="logout" type="warn">切换账号</button>
   </view>
   <view class="weui-footer weui-footer_fixed-bottom">
