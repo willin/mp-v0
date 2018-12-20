@@ -1,3 +1,3 @@
 /* app/pages/mine/mine.wxss */
-.btn{margin-top: 48rpx;display: block;background-color: #d43c33;height: 2.4em;padding: 0;line-height: 2.4;border-radius: 5rpx;font-size: 32rpx}
+.btn{margin-top: 48rpx;display: block;background-color: #C20C0C;height: 2.4em;padding: 0;line-height: 2.4;border-radius: 5rpx;font-size: 32rpx}
 .secondary {height: 2.4em;font-size: 32rpx;line-height: 2.4em;border-radius: 5rpx;display:block;}
