@@ -1,5 +1,9 @@
 # 微聆
 
+![qr](https://user-images.githubusercontent.com/1890238/56353336-be619180-6203-11e9-98fc-b558411ddd25.jpg)
+
+![qr](https://user-images.githubusercontent.com/1890238/56353341-befa2800-6203-11e9-9f74-4630e8a6484d.jpg)
+
 TBD：
 
 - [x] Loading 动画
