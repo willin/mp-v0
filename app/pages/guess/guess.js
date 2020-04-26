@@ -6,6 +6,7 @@ const guess = async (uid) => {
   wx.showLoading({
     title: '加载中',
   });
+  console.log(uid);
   const { result = [] } = await wx.cloud.callFunction({
     name: 'guess',
     data: {

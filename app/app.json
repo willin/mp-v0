@@ -12,7 +12,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#BB2C08",
     "navigationBarTitleText": "微聆",
-    "navigationBarTextStyle": "#fff"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#666",
@@ -44,5 +44,6 @@
       }
     ]
   },
-  "resizable": true
+  "resizable": true,
+  "sitemapLocation": "sitemap.json"
 }

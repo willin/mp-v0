@@ -12,12 +12,10 @@ const getUserHotComments = uid => SDK.user.record({
   } = {}
 }) => songs.map(({
   song: {
-    song: {
-      id,
-      name: music,
-      artist: {
-        name: artist
-      }
+    id,
+    name: music,
+    ar: {
+      name: artist
     }
   }
 }) => SDK.comment.hot({
