@@ -14,9 +14,7 @@ const getUserHotComments = uid => SDK.user.record({
   song: {
     id,
     name: music,
-    ar: {
-      name: artist
-    }
+    ar
   }
 }) => SDK.comment.hot({
   id,
@@ -31,7 +29,7 @@ const getUserHotComments = uid => SDK.user.record({
     avatar: avatarUrl,
     liked: likedCount,
     music,
-    artist,
+    artist: ar.map(x=>x.name).join(' , '),
     content,
     time,
     nickname
